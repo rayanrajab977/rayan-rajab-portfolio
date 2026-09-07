@@ -1,0 +1,443 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── CSS Custom Properties ─────────────────────────────── */
+:root {
+  --void: #080a0f;
+  --charcoal: #0d1117;
+  --surface: #111827;
+  --surface-2: #1a2234;
+  --border: #1e2d40;
+  --border-hover: rgba(0, 212, 255, 0.18);
+  --text-primary: #f0f4f8;
+  --text-secondary: #8b9ab0;
+  --text-muted: #4a5568;
+  --cyan: #00d4ff;
+  --cyan-dim: #0099cc;
+  --violet: #7c3aed;
+  --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+/* ─── Base Reset ─────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+}
+
+body {
+  background-color: var(--void);
+  color: var(--text-primary);
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ─── Custom Scrollbar ───────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: var(--charcoal);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--cyan-dim);
+}
+
+/* ─── Selection ──────────────────────────────────────────── */
+::selection {
+  background: rgba(0, 212, 255, 0.18);
+  color: var(--text-primary);
+}
+
+/* ─── Focus States ───────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+/* ─── Typography Utilities ───────────────────────────────── */
+@layer components {
+  .text-display {
+    font-size: clamp(3rem, 8vw, 7rem);
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    font-weight: 800;
+  }
+
+  .text-display-sm {
+    font-size: clamp(2rem, 5vw, 4.5rem);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    font-weight: 700;
+  }
+
+  .text-heading-xl {
+    font-size: clamp(1.75rem, 4vw, 3rem);
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    font-weight: 700;
+  }
+
+  .text-heading-lg {
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    font-weight: 600;
+  }
+
+  /* Monospace utilities — one canonical size per role */
+  .label-mono {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.6875rem;    /* 11px — primary label size */
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .label-mono-sm {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.5625rem;    /* 9px — metadata / corner tags */
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .label-mono-cyan {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.6875rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--cyan);
+  }
+
+  /* Section Container */
+  .section-container {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 clamp(1.5rem, 5vw, 4rem);
+  }
+
+  .section-padding {
+    padding-top: clamp(5rem, 10vw, 9rem);
+    padding-bottom: clamp(5rem, 10vw, 9rem);
+  }
+
+  /* Eyebrow — section label above headings */
+  .eyebrow {
+    display: block;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.6875rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 1.25rem;
+  }
+
+  /* Section header bottom margin — one canonical value */
+  .section-header {
+    margin-bottom: 4rem; /* 64px / mb-16 */
+  }
+
+  /* Tag pill — unified style used across all card types */
+  .tag-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.25rem 0.625rem;
+    border-radius: 6px;
+    border: 1px solid;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.5625rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+
+  /* Card base — used by Experience timeline cards */
+  .card-base {
+    background: var(--charcoal);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    transition:
+      border-color 0.3s var(--ease-premium),
+      box-shadow 0.3s var(--ease-premium),
+      transform 0.3s var(--ease-premium);
+  }
+
+  .card-base:hover {
+    border-color: var(--border-hover);
+    box-shadow: 0 0 0 1px rgba(0, 212, 255, 0.06), 0 8px 40px rgba(0, 0, 0, 0.5);
+    transform: translateY(-2px);
+  }
+
+  /* Glow text */
+  .glow-text {
+    text-shadow: 0 0 40px rgba(0, 212, 255, 0.28);
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    background: linear-gradient(135deg, #00d4ff 0%, #7c3aed 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Status dot */
+  .status-dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #22c55e;
+    flex-shrink: 0;
+    animation: statusPulse 2.5s ease-in-out infinite;
+  }
+
+  /* Grid background */
+  .bg-grid {
+    background-image: linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  /* Divider */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+  }
+
+  /* ─── Button primary ───────────────────────────── */
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.75rem;
+    background: var(--cyan);
+    color: var(--void);
+    font-weight: 600;
+    font-size: 0.875rem;
+    letter-spacing: 0.01em;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    /* Scope to only the properties that should transition */
+    transition:
+      background-color 0.2s var(--ease-premium),
+      box-shadow 0.2s var(--ease-premium),
+      transform 0.2s var(--ease-premium),
+      color 0.2s var(--ease-premium);
+    text-decoration: none;
+    white-space: nowrap;
+    user-select: none;
+  }
+
+  .btn-primary:hover {
+    background: #1ad9ff;
+    box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.12), 0 4px 20px rgba(0, 212, 255, 0.25);
+    transform: translateY(-1px);
+  }
+
+  .btn-primary:active {
+    transform: translateY(0) scale(0.97);
+    box-shadow: none;
+    background: var(--cyan);
+  }
+
+  /* ─── Button secondary ─────────────────────────── */
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.75rem;
+    background: transparent;
+    color: var(--text-secondary);
+    font-weight: 500;
+    font-size: 0.875rem;
+    letter-spacing: 0.01em;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition:
+      border-color 0.2s var(--ease-premium),
+      background-color 0.2s var(--ease-premium),
+      color 0.2s var(--ease-premium),
+      box-shadow 0.2s var(--ease-premium),
+      transform 0.2s var(--ease-premium);
+    text-decoration: none;
+    white-space: nowrap;
+    user-select: none;
+  }
+
+  .btn-secondary:hover {
+    border-color: rgba(0, 212, 255, 0.4);
+    color: var(--text-primary);
+    background: rgba(0, 212, 255, 0.06);
+    transform: translateY(-1px);
+    box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.04);
+  }
+
+  .btn-secondary:active {
+    transform: translateY(0) scale(0.97);
+    box-shadow: none;
+  }
+
+  /* ─── Ghost button — inline text link style ────── */
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: color 0.2s var(--ease-premium);
+    text-decoration: none;
+    padding: 0;
+    user-select: none;
+  }
+
+  .btn-ghost:hover {
+    color: var(--text-primary);
+  }
+}
+
+/* ─── Keyframe Animations ────────────────────────────────── */
+@keyframes statusPulse {
+  0%,
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.5);
+  }
+  60% {
+    box-shadow: 0 0 0 5px rgba(34, 197, 94, 0);
+  }
+}
+
+@keyframes scanLine {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(200%);
+  }
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes glowPulse {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes drawLine {
+  from {
+    stroke-dashoffset: 1000;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ─── Scrollbar hide utility ─────────────────────────────── */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* ─── Skip to content ───────────────────────────────────── */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  z-index: 9999;
+  padding: 0.5rem 1rem;
+  background: var(--cyan);
+  color: var(--void);
+  font-weight: 600;
+  font-size: 0.875rem;
+  border-radius: 0 0 6px 6px;
+  transition: top 0.2s;
+  text-decoration: none;
+}
+.skip-link:focus {
+  top: 0;
+}
+
+/* ─── Reduced Motion ─────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+
+  body {
+    cursor: auto;
+  }
+}
+
+/* ─── Mobile cursor reset ────────────────────────────────── */
+@media (hover: none) {
+  body {
+    cursor: auto;
+  }
+}

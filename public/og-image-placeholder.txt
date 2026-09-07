@@ -1,0 +1,11 @@
+PLACEHOLDER — Replace with real OG image before deploying.
+
+Required: /public/og-image.png
+Dimensions: 1200 × 630 px
+Content: Rayan Rajab — Technology Builder | Cloud, Cybersecurity & AI
+Background: #080a0f (near-black)
+Text color: #f0f4f8 (off-white) + #00d4ff (cyan accent)
+
+Also add:
+- /public/favicon.ico  (16×16 and 32×32, for older browser fallback)
+- /public/apple-touch-icon.png  (180×180, for iOS home screen)
